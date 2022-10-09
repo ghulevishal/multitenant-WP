@@ -1,0 +1,32 @@
+
+frontend:
+  terminationGracePeriodSeconds: 5
+  image:
+    repository: nginx
+    tag: 1.14.2
+    pullPolicy: IfNotPresent
+  ports:
+    containerPort: 80
+  healthChecks:
+    readinessProbe:
+      initialDelaySeconds: 10
+      httpGet:
+        path: "/"
+        port: 80
+    livenessProbe:
+      initialDelaySeconds: 10
+      httpGet:
+        path: "/"
+        port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+  service:
+    type: ClusterIP
+    name: http
+    port: 80
+  
